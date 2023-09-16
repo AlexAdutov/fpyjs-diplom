@@ -33,3 +33,8 @@ class App {
     return this.modals[name];
   }
 }
+
+// Инициализация приложения при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+  App.init();
+});

@@ -14,6 +14,12 @@ class VK {
    * */
   static get(id = '', callback){
 
+    VK.lastCallback = callback;
+
+    const script = document.createElement('script');
+    script.src = `https://api.vk.com/method/photos.get?user_id=${id}&access_token=${VK.ACCESS_TOKEN}&callback=VK.processData`;
+    document.body.appendChild(script);
+
   }
 
   /**
@@ -21,6 +27,25 @@ class VK {
    * Является обработчиком ответа от сервера.
    */
   static processData(result){
+  const scriptTag = document.querySelector('script[src^="https://api.vk.com/method/photos.get"]');
+    if (scriptTag) {
+    scriptTag.parentNode.removeChild('scriptTag');
+      }
 
+    if (result.error){
+      alert(result.error.error_msg);
+      return;
+    }
+
+    const largestImages = result.response.item.map(item =>{
+      const sizes = item.sizes;
+      return sizes[sizes.length -1].url;
+    })
+
+if(VK.lastCallback){
+  VK.lastCallback(largestImages);
+}
+
+VK.lastCallback = () =>{};
   }
 }
