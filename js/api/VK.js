@@ -6,7 +6,7 @@
  * */
 class VK {
 
-  static ACCESS_TOKEN = 'afd58514afd58514afd58514e2acc02205aafd5afd58514cad0329bb828fa37ae433094';
+  static ACCESS_TOKEN = '';
   static lastCallback;
 
 
